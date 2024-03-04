@@ -8,19 +8,24 @@ const Login = () => {
   const handleUserName = (e) => {
     setUserName(e.target.value);
   };
-  const handlePassWoard = (e) => {
+
+  const handlePassWord = (e) => {
     setPassWord(e.target.value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const postData = {
-      userName: userName,
-      password: password,
-    };
-    fetch("api/endpoint", {
+    fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
-      body: JSON.stringify(postData),
-    }).then((response) => response.json().catch(console.error()));
+      body: JSON.stringify({
+        userName: userName,
+        password: password,
+        userId: 1,
+      }),
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch(console.error());
   };
 
   return (
@@ -46,7 +51,7 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
-                onChange={handlePassWoard}
+                onChange={handlePassWord}
                 value={password}
               />
             </td>
