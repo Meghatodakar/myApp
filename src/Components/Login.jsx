@@ -1,0 +1,100 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+  const url = "http://localhost:3000/users";
+  const [login, setLogin] = useState({ userId: "", password: "" });
+  const [invalid, setInvalid] = useState("");
+  let navigate = useNavigate();
+
+  const handleLoginChange = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+    setInvalid("");
+  };
+
+  const checkLogin = async () => {
+    const loginDetails = await axios
+      .get(url)
+      .then((res) => {
+        let userIndex;
+        const allDatas = res.data;
+        const userData = allDatas.find((user, index) => {
+          userIndex = index;
+          return (
+            user.customerId == login.userId &&
+            user.customerPin == login.password
+          );
+        });
+        if (userData) {
+          navigate(`/account/${userIndex}`);
+        } else {
+          setInvalid("d-block");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  return (
+    <div>
+      <p>Welcome to MY Bank</p>
+      <div className="row">
+        <h5 className="card-title text-center mb-5 fw-light fs-5 fw-semibold">
+          Sign In
+        </h5>
+        <form>
+          <div className="form-floating mb-3">
+            <label for="floatingInput">User ID :</label>
+            <input
+              type="text"
+              className="form-control"
+              id="floatingInput"
+              placeholder="Email address"
+              value={login.userId}
+              onChange={handleLoginChange}
+              name="userId"
+            />
+          </div>
+          <div className="form-floating mb-3">
+            <label for="floatingPassword">User PIN :</label>
+            <input
+              type="password"
+              className="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+              autoComplete="true"
+              value={login.password}
+              onChange={handleLoginChange}
+              name="password"
+            />
+          </div>
+          <p className={`text-danger fw-semibold ms-2 ${invalid}`}>
+            Invalid ID or PIN
+          </p>
+          <div className="form-check mb-3">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="rememberPasswordCheck"
+            />
+            <label className="form-check-label" htmlFor="rememberPasswordCheck">
+              Remember password
+            </label>
+          </div>
+          <div className="d-grid mt-4">
+            <button
+              className="btn btn-primary text-uppercase fw-semibold"
+              type="button"
+              onClick={checkLogin}
+            >
+              Sign in
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
