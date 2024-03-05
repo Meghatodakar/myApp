@@ -29,7 +29,7 @@ const Login = () => {
         if (userData) {
           navigate(`/account/${userIndex}`);
         } else {
-          setInvalid("d-block");
+          setInvalid(" ");
         }
       })
       .catch((err) => console.log(err));
@@ -87,6 +87,7 @@ const Login = () => {
                 <p className={`text-danger fw-semibold ms-2 ${invalid}`}>
                   Invalid ID or PIN
                 </p>
+
                 <div className="form-check mb-3">
                   <input
                     className="form-check-input"
