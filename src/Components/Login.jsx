@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const url = "http://localhost:3000/users";
   const [login, setLogin] = useState({ userId: "", password: "" });
-  const [invalid, setInvalid] = useState("");
+  const [invalid, setInvalid] = useState("d-none");
   let navigate = useNavigate();
 
   const handleLoginChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
-    setInvalid("");
+    setInvalid("d-none");
   };
 
   const checkLogin = async () => {
@@ -29,7 +29,7 @@ const Login = () => {
         if (userData) {
           navigate(`/account/${userIndex}`);
         } else {
-          setInvalid(" ");
+          setInvalid("d-block");
         }
       })
       .catch((err) => console.log(err));

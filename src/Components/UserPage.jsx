@@ -80,7 +80,7 @@ const UserPage = () => {
         <form className="row g-3">
           <div className="col-12 mt-lg-3">
             <label htmlFor="inputAddress3" className="form-label">
-              User ID
+              Customer ID
             </label>
             <input
               type="number"
@@ -90,7 +90,6 @@ const UserPage = () => {
               value={user.userId}
               onChange={handleChange}
               readOnly={true}
-              onWheel={(e) => e.target.blur()}
             />
           </div>
           <div className="col-12 mt-lg-3">
@@ -105,7 +104,6 @@ const UserPage = () => {
               value={user.accountNumber}
               onChange={handleChange}
               readOnly={true}
-              onWheel={(e) => e.target.blur()}
             />
           </div>
           <div className="col-12 mt-lg-4">
@@ -172,7 +170,6 @@ const UserPage = () => {
                   value={user.contact}
                   readOnly={readOnly}
                   onChange={handleChange}
-                  onWheel={(e) => e.target.blur()}
                 />
               </div>
             </div>
